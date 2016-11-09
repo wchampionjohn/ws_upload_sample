@@ -1,15 +1,42 @@
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Chat</title>
-</head>
-<body>
-    <h2>File Upload</h2>
-    Select file
-    <input type="file" id="filename" />
-    <br>
-    <input type="button" value="Connect" onclick="connectChatServer()" />
-    <br>
-    <input type="button" value="Upload" onclick="sendFile()" />
-</body>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Chat</title>
+  </head>
+  <style>
+
+    .btn-file {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-file input[type=file] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 100%;
+      min-height: 100%;
+      font-size: 100px;
+      text-align: right;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      outline: none;
+      background: white;
+      cursor: inherit;
+      display: block;
+    }
+  </style>
+  <body>
+    <center>
+      <h2>File Upload</h2>
+
+      <div id="filename_div" class="btn btn-default btn-file">
+        Browse <input type="file">
+        <input type="file" id="filename" title="Brower">
+        <br />
+      </div>
+      <br />
+      <br />
+      <img id="file_img" src="/image.jpg?<%= Time.now.to_i %>" width="400" height="400">
+    </center>
+  </body>
 </html>

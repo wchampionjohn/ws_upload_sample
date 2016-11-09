@@ -1,28 +1,28 @@
 $(document).on('ready page:load', function () {
+  ws = new WebSocketRails('localhost:3000/websocket');
 });
 
-function connectChatServer() {
-
-}
+$(document).on('change', ':file', function() {
+  sendFile();
+});
 
 function sendFile() {
-  var ws = new WebSocketRails('localhost:3000/websocket');
-  //dispatcher.trigger('comments.create', comment);
   var file = document.getElementById('filename').files[0];
   var reader = new FileReader();
-  var rawData = new ArrayBuffer();
-  alert(file.name);
 
-  reader.loadend = function() {
-
-  }
   reader.onload = function(e) {
-    rawData = e.target.result;
-    //ws.send(rawData);
-    ws.trigger('tasks.create', rawData);
-    alert("the File has been transferred.")
+    r = e.target.result;
+    var success = function(message) {
+      console.log("file upload success " + message);
+      d = new Date();
+      $('#file_img').attr("src", "/image.jpg?"+d.getTime()).show();
+      alert('上傳成功');
+      //$('#filename_div').hide();
+    }
+    var failure = function(message) { console.log("file upload Failed " + message) }
+
+    ws.trigger('tasks.create', r, success, failure);
   }
 
-  reader.readAsArrayBuffer(file);
-
+  reader.readAsDataURL(file);
 }
